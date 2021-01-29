@@ -35,9 +35,8 @@ public class AppController {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
 
-        userRepo.save(user);
-
-        return "register_success";
+            userRepo.save(user);
+            return "register_success";
     }
 
     @GetMapping("/users")

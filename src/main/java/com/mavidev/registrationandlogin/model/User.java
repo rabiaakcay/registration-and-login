@@ -1,6 +1,8 @@
 package com.mavidev.registrationandlogin.model;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 
 @Data
 @Entity
@@ -17,18 +20,22 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @Column(nullable = false, unique = true, length = 45)
     private String email;
 
     @Column(nullable = false, length = 64)
     private String password;
 
+
     @Column(name = "first_name", nullable = false, length = 20)
     private String firstName;
 
     @Column(name = "last_name", nullable = false, length = 20)
     private String lastName;
+
+    @Column(name = "birth_location", nullable = true, length = 20)
+    private String birthLocation;
 
     public Long getId() {
         return id;
@@ -70,4 +77,11 @@ public class User {
         this.lastName = lastName;
     }
 
+    public String getBirthLocation() {
+        return birthLocation;
+    }
+
+    public void setBirthLocation(String birthLocation) {
+        this.birthLocation = birthLocation;
+    }
 }
