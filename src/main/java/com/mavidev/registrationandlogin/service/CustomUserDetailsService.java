@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-
-
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -26,5 +24,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new CustomUserDetails(user);
     }
 
-
+    public User saveUser(User user){
+        user.setFirstName(user.getFirstName().toUpperCase());
+        userRepo.save(user);
+        return user;
+    }
 }

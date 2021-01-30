@@ -2,20 +2,23 @@ package com.mavidev.registrationandlogin.controller;
 
 import com.mavidev.registrationandlogin.model.User;
 import com.mavidev.registrationandlogin.repository.UserRepository;
+import com.mavidev.registrationandlogin.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.List;
+
 
 @Controller
 public class AppController {
 
     @Autowired
     private UserRepository userRepo;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
     @GetMapping("")
     public String viewHomePage() {
@@ -34,9 +37,9 @@ public class AppController {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-
-            userRepo.save(user);
-            return "register_success";
+        customUserDetailsService.saveUser(user);
+        userRepo.save(user);
+        return "register_success";
     }
 
     @GetMapping("/users")

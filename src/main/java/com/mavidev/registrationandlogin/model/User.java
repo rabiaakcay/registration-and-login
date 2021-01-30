@@ -1,16 +1,8 @@
 package com.mavidev.registrationandlogin.model;
 
-import com.sun.istack.NotNull;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -19,6 +11,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id",unique=true, nullable = false)
     private Long id;
     
     @Column(nullable = false, unique = true, length = 45)
